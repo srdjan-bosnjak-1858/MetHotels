@@ -1,0 +1,21 @@
+<html t:type="layout" title="TapestryHibernateDemo Index"
+    t:sidebarTitle="Framework Version"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:p="tapestry:parameter">
+    <t:beaneditform object="klijent" exclude="id" add="katId" >
+        <p:katId>
+            <t:label for="katId"/>:
+            <t:select t:blankLabel="Odaberi kategoriju" t:id="katId" encoder="encoder" model="kategorije"
+            validate="required"/>
+        </p:katId>
+    </t:beaneditform>
+    <t:grid source="klijenti" exclude="id" add="kategorija,delete" row="oneklijent"
+        reorder="ime,prezime,kategorija,brojPasosa,adresa,delete">
+        <p:deleteCell>
+            <t:actionlink t:id="delete" context="oneklijent.id">Delete</t:actionlink>
+        </p:deleteCell>
+        <p:kategorijaCell>
+            ${kategorija}
+        </p:kategorijaCell>
+    </t:grid>
+</html>

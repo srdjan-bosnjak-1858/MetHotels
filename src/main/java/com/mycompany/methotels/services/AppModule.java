@@ -1,5 +1,9 @@
 package com.mycompany.methotels.services;
 
+import com.mycompany.methotels.services.dao.KategorijaDao;
+import com.mycompany.methotels.services.dao.KategorijaDaoImpl;
+import com.mycompany.methotels.services.dao.KlijentDao;
+import com.mycompany.methotels.services.dao.KlijentDaoImpl;
 import java.io.IOException;
 
 import org.apache.tapestry5.*;
@@ -24,6 +28,8 @@ public class AppModule
 {
     public static void bind(ServiceBinder binder)
     {
+        binder.bind(KategorijaDao.class, KategorijaDaoImpl.class);
+        binder.bind(KlijentDao.class, KlijentDaoImpl.class);
         // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
 
         // Make bind() calls on the binder object to define most IoC services.
