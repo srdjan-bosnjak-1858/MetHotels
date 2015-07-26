@@ -1,61 +1,57 @@
 package com.mycompany.methotels.pages;
 
-import org.apache.tapestry5.alerts.AlertManager;
-import org.apache.tapestry5.annotations.InjectComponent;
-import org.apache.tapestry5.annotations.InjectPage;
+import com.mycompany.methotels.entities.User;
+import com.mycompany.methotels.services.dao.UserDao;
+import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.corelib.components.Form;
-import org.apache.tapestry5.corelib.components.PasswordField;
-import org.apache.tapestry5.corelib.components.TextField;
+import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.corelib.components.BeanEditForm;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.slf4j.Logger;
 
-public class Login
-{
-	@Inject
-	private Logger logger;
+public class Login {
 
-	@Inject
-	private AlertManager alertManager;
+    @Inject
+    private UserDao userDao;
+    @Property
+    private User userLogin;
+    @SessionState
+    private User loggedInUser;
+    @Component
+    private BeanEditForm form;
 
-	@InjectComponent
-	private Form login;
-	@InjectComponent
-	private TextField email;
-	@InjectComponent
-	private PasswordField password;
+    Object onActivate() {
+        if (loggedInUser.getEmail() != null) {
+            return Index.class;
+        }
+        return null;
+    }
 
-	@InjectPage
-	private Index index;
+    public String getMD5Hash(String yourString) {
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            byte[] array = md.digest(yourString.getBytes());
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < array.length; ++i) {
+                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            return "";
+        }
+    }
 
-	@Property
-	private String emailValue;
-	@Property
-	private String passwordValue;
-
-
-
-	void onValidateFromLogin()
-	{
-		if ( !emailValue.equals("users@tapestry.apache.org"))
-			login.recordError(email, "Try with user: users@tapestry.apache.org");
-
-		if ( !passwordValue.equals("Tapestry5"))
-			login.recordError(password, "Try with password: Tapestry5");
-	}
-
-	Object onSuccessFromLogin()
-	{
-		logger.info("Login successful!");
-		alertManager.success("Welcome aboard!");
-
-		return index;
-	}
-
-	void onFailureFromLogin()
-	{
-		logger.warn("Login error!");
-		alertManager.error("I'm sorry but I can't log you in!");
-	}
-
+    Object onSuccess() {
+        String password = getMD5Hash(userLogin.getSifra());
+        System.out.println(password);
+        User u = userDao.checkUser(userLogin.getEmail(), password);
+        if (u != null) {
+            loggedInUser = u;
+            System.out.println("Logovan");
+            return Index.class;
+        } else {
+            form.recordError("Uneli ste pogrešne parametre");
+            System.out.println("losi parametri");
+            return null;
+        }
+    }
 }

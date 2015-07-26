@@ -6,10 +6,10 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>MetHotels Tapestry 5 Application</name>
-        <dependencies>
+    <dependencies>
         <!-- To set up an application with a database, change the artifactId below to
-             tapestry-hibernate, and add a dependency on your JDBC driver. You'll also
-             need to add Hibernate configuration files, such as hibernate.cfg.xml. -->
+        tapestry-hibernate, and add a dependency on your JDBC driver. You'll also
+        need to add Hibernate configuration files, such as hibernate.cfg.xml. -->
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-core</artifactId>
@@ -58,8 +58,8 @@
         -->
 
         <!-- A dependency on either JUnit or TestNG is required, or the surefire plugin (which runs the tests)
-will fail, preventing Maven from packaging the WAR. Tapestry includes a large number
-of testing facilities designed for use with TestNG (http://testng.org/), so it's recommended. -->
+        will fail, preventing Maven from packaging the WAR. Tapestry includes a large number
+        of testing facilities designed for use with TestNG (http://testng.org/), so it's recommended. -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -82,7 +82,7 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
         </dependency>
 
         <!-- Provided by the servlet container, but sometimes referenced in the application
-       code. -->
+        code. -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -96,6 +96,12 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
             <artifactId>tapestry-javadoc</artifactId>
             <version>${tapestry-release-version}</version>
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.2</version>
         </dependency>
 
     </dependencies>
@@ -133,7 +139,7 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
                     <!-- Log to the console. -->
                     <requestLog implementation="org.mortbay.jetty.NCSARequestLog">
                         <!-- This doesn't do anything for Jetty, but is a workaround for a Maven bug
-                             that prevents the requestLog from being set. -->
+                        that prevents the requestLog from being set. -->
                         <append>true</append>
                     </requestLog>
                     <systemProperties>
@@ -152,7 +158,7 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
     <repositories>
 
         <!-- This repository is only needed when the Tapestry version is a preview release, rather
-             than a final release. -->
+        than a final release. -->
         <repository>
             <id>apache-staging</id>
             <url>https://repository.apache.org/content/groups/staging/</url>

@@ -1,0 +1,14 @@
+<html t:type="layout" title="TapestryHibernateDemo Index"
+      t:sidebarTitle="Framework Version"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+    <t:beaneditform t:id="form" object="userReg" exclude="id">
+        <t:errors/>
+        <p:rola>
+            <t:if test="IsAdminLoggedIn">
+                <t:label for="userRola"/>
+                <t:select t:id="userRola" />
+            </t:if>
+        </p:rola>
+    </t:beaneditform>
+</html>
